@@ -62,7 +62,8 @@ export default {
               photoURL: facebookUser.photoURL,
               experience: 0,
               team: teamId,
-              addedToHomescreen: false
+              addedToHomeScreen: false,
+              notificationAllowed: false
             };
           } else {
             user = {
@@ -72,7 +73,8 @@ export default {
               photoURL: facebookUser.photoURL,
               experience: 0,
               team: facebookUser.uid,
-              addedToHomescreen: false
+              addedToHomeScreen: false,
+              notificationAllowed: false
             };
           }
           commit("SET_USER", user);

@@ -45,7 +45,7 @@ new Vue({
     let self = this
     window.addEventListener("beforeinstallprompt", function(event) {
       event.preventDefault();
-      self.$store.commit("SET_ADD_TO_HOMESCREEN", event);
+      self.$store.commit("SET_ADD_TO_HOME_SCREEN", event);
       return false
     });
     // Auth

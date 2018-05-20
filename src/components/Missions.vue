@@ -4,34 +4,6 @@
     <h2>Missions</h2>
   </v-layout>
 
-  <v-btn
-    @click.native.stop="dialog = true"
-    v-if="notYetAddedToHomescreen"
-    style="margin-bottom:45px"
-              absolute
-              dark
-              fab
-              bottom
-              right
-              color="secondary"
-            >
-              <v-icon color="primary">add_to_home_screen</v-icon>
-            </v-btn>
-
-
-
-    <v-dialog v-model="dialog" max-width="290">
-      <v-card class="color-back">
-        <v-card-title class="headline" style="color:#fff">Add Antibide to your home screen and get a bonus of 50xp!</v-card-title>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="secondary" flat="flat" @click.native="dialog = false">later...</v-btn>
-          <v-btn color="secondary" flat="flat" @click.native="dialog = false" @click="addToHomescreen()">Add</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
-
-
  <v-layout v-if="user" mt-2 row wrap>
    <v-flex xs6 v-for="(exercice, key, index) in exercices" :key="index">
       <v-card style="margin:5px">
@@ -97,7 +69,6 @@ export default {
   name: "Missions",
   data() {
     return {
-      dialog: false,
       counterDown: null,
       countDown: 3,
       time: 0,
@@ -140,9 +111,6 @@ export default {
     user() {
       return this.$store.getters.user;
     },
-    notYetAddedToHomescreen() {
-      return this.$store.getters.addToHomescreen;
-    },
     dialogVideo: {
       get() {
         return this.$store.getters.dialogVideo;
@@ -163,25 +131,6 @@ export default {
     }
   },
   methods: {
-    addToHomescreen(){
-      let self = this
-      if(this.notYetAddedToHomescreen){
-        this.notYetAddedToHomescreen.prompt();
-        this.notYetAddedToHomescreen.userChoice.then(function(choiceResult){
-          console.log(choiceResult.outcome)
-          if(choiceResult.outcome === 'dismissed'){
-            console.log('User cancelled installation')
-          } else {
-            console.log('User accepted installation')
-            self.$store.commit("SET_EXPERIENCE", 50)
-            self.$store.commit("SET_SNACKBAR", "+50 xp");
-            self.$store.dispatch("addExperience", self.$store.getters.user.experience)
-            self.$store.dispatch("addToHomescreen")
-          }
-        })
-        this.$store.commit("SET_ADD_TO_HOMESCREEN", null);
-      }
-    },
     openDialogVideo(src) {
       this.$store.commit("SET_DIALOG_VIDEO", true);
       let video = document.createElement("iframe");
@@ -277,16 +226,7 @@ export default {
   margin-top: -8px;
   position: absolute;
 }
-.add {
-  cursor: pointer;
-  background-color: white;
-  border-radius: 25px;
-  text-align: center;
-  padding-top: 9px;
-  width: 60px;
-  color: #23a6d5;
-  height: 40px;
-}
+
 
 * {
   /*border: solid 1px red;*/

@@ -6,7 +6,7 @@ export default {
     dialogVideo: false,
     timer: 0,
     dialogTimer:false,
-    addToHomescreen:null
+    addToHomeScreen:null
   },
   mutations: {
     SET_LOADING(state, payload) {
@@ -21,14 +21,22 @@ export default {
     SET_TIMER(state, payload) {
       state.timer = payload;
     },
-    SET_ADD_TO_HOMESCREEN(state, payload) {
-      state.addToHomescreen = payload;
+    SET_ADD_TO_HOME_SCREEN(state, payload) {
+      state.addToHomeScreen = payload;
     }
   },
   actions: {
-    addToHomescreen({ commit, getters, state, dispatch }, payload) {
+    addToHomeScreen({ getters }) {
       //console.log("Update user's data");
-      let data = { addedToHomescreen: true };
+      let data = { addedToHomeScreen: true };
+      firebase
+        .database()
+        .ref("/users/" + getters.user.uid)
+        .update(data);
+    },
+    notificationAllowed({ getters}) {
+      //console.log("Update user's data");
+      let data = { notificationAllowed: true };
       firebase
         .database()
         .ref("/users/" + getters.user.uid)
@@ -59,8 +67,8 @@ export default {
     timer(state) {
       return state.timer;
     },
-    addToHomescreen(state) {
-      return state.addToHomescreen;
+    addToHomeScreen(state) {
+      return state.addToHomeScreen;
     }
   }
 };

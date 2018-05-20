@@ -3,6 +3,8 @@
     <div style="max-width:500px;margin-right:auto;margin-left:auto">
     <Team ref="team"/>
     <Missions ref="missions"/>
+    <AddToHomeScreen ref="addToHomeScreen"/>
+    <NotificationRequestPermission ref="notificationRequestPermission"/>
     </div>
   </v-container>
 </template>
@@ -12,10 +14,12 @@ export default {
   name: "Home",
   components: {
     Team: () => import("@/components/Team"),
-    Missions: () => import("@/components/Missions")
+    Missions: () => import("@/components/Missions"),
+    AddToHomeScreen: () => import("@/components/AddToHomeScreen"),
+    NotificationRequestPermission: () => import("@/components/NotificationRequestPermission")
   },
   methods: {
-    fullScreen(){
+    fullScreen() {
       // auto fullscreen
       /*var doc = window.document;
       var docEl = doc.documentElement;
